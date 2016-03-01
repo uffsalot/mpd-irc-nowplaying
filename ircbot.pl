@@ -64,6 +64,7 @@ sub current_song {
 my $song = "";
 my $artist = "";
 my $album = "";
+my $date = "";
 my $current = "";
 my $state = "";
 my $socket = new IO::Socket::INET(PeerAddr => $mpd_host,
@@ -100,10 +101,14 @@ my $socket = new IO::Socket::INET(PeerAddr => $mpd_host,
                             $album = $ans;
                             chomp $album;
                     }
+                    if ( $ans =~ s/^Date: //) {
+                            $date = $ans;
+                            chomp $date;
+                    }
             }
-            $current = "♫ ${artist} - ${song} (${album})\r\n";
+            $current = "♫ ${artist} - ${song} (${album}, ${date})\r\n";
             } else {
-                $current = "No song is currently playing\r\n";
+                $current = "No song is currently playing (State: ${state})\r\n";
             }
             close($socket);
             print $sock "PRIVMSG ${channel} :${current}";
