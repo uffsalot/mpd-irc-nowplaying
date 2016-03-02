@@ -106,7 +106,7 @@ my $socket = new IO::Socket::INET(PeerAddr => $mpd_host,
                             chomp $date;
                     }
             }
-            $current = "♫ ${artist} - ${song} (${album}, ${date})\r\n";
+            $current = "♫ ${song} - ${artist} (${album}, ${date})\r\n";
             } else {
                 $current = "No song is currently playing (State: ${state})\r\n";
             }
